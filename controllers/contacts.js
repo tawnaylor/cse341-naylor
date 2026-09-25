@@ -11,14 +11,15 @@ const getAll = async (req, res) => {
 };
 
 const getSingle = async (req, res) => {
-  if (!ObjectId.isValid(req.params.id)) {
+  const id = req.params.id ?? req.query.id;
+  if (!ObjectId.isValid(id)) {
     return res.status(400).json({ message: 'Invalid contact id' });
   }
   try {
     const contact = await mongodb
       .getDb()
       .collection('contacts')
-      .findOne({ _id: new ObjectId(req.params.id) });
+      .findOne({ _id: new ObjectId(id) });
     if (!contact) {
       return res.status(404).json({ message: 'Contact not found' });
     }

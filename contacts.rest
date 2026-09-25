@@ -7,6 +7,9 @@ GET http://localhost:3000/contacts HTTP/1.1
 ### Local: single contact (paste an _id from the response above)
 GET http://localhost:3000/contacts/REPLACE_WITH_ID HTTP/1.1
 
+### Local: single contact by query parameter
+GET http://localhost:3000/contacts?id=REPLACE_WITH_ID HTTP/1.1
+
 ### Render: home
 GET https://cse341-naylor.onrender.com/ HTTP/1.1
 
@@ -15,3 +18,6 @@ GET https://cse341-naylor.onrender.com/contacts HTTP/1.1
 
 ### Render: single contact
 GET https://cse341-naylor.onrender.com/contacts/REPLACE_WITH_ID HTTP/1.1
+
+### Render: single contact by query parameter
+GET https://cse341-naylor.onrender.com/contacts?id=REPLACE_WITH_ID HTTP/1.1
