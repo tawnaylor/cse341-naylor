@@ -29,4 +29,78 @@ const getSingle = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getSingle };
+const requiredFields = ['firstName', 'lastName', 'email', 'favoriteColor', 'birthday'];
+
+const getMissingFields = (body = {}) => requiredFields.filter((field) => !body[field]);
+
+const buildContact = (body) => ({
+  firstName: body.firstName,
+  lastName: body.lastName,
+  email: body.email,
+  favoriteColor: body.favoriteColor,
+  birthday: body.birthday
+});
+
+const createContact = async (req, res) => {
+  const missing = getMissingFields(req.body);
+  if (missing.length) {
+    return res.status(400).json({ message: `Missing required fields: ${missing.join(', ')}` });
+  }
+
+  try {
+    const response = await mongodb
+      .getDb()
+      .collection('contacts')
+      .insertOne(buildContact(req.body));
+    res.status(201).json({ id: response.insertedId });
+  } catch (err) {
+    res.status(500).json({ message: err.message || 'Error creating contact' });
+  }
+};
+
+const updateContact = async (req, res) => {
+  if (!ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ message: 'Invalid contact id' });
+  }
+
+  const missing = getMissingFields(req.body);
+  if (missing.length) {
+    return res.status(400).json({ message: `Missing required fields: ${missing.join(', ')}` });
+  }
+
+  try {
+    const response = await mongodb
+      .getDb()
+      .collection('contacts')
+      .replaceOne({ _id: new ObjectId(req.params.id) }, buildContact(req.body));
+
+    if (response.matchedCount === 0) {
+      return res.status(404).json({ message: 'Contact not found' });
+    }
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json({ message: err.message || 'Error updating contact' });
+  }
+};
+
+const deleteContact = async (req, res) => {
+  if (!ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ message: 'Invalid contact id' });
+  }
+
+  try {
+    const response = await mongodb
+      .getDb()
+      .collection('contacts')
+      .deleteOne({ _id: new ObjectId(req.params.id) });
+
+    if (response.deletedCount === 0) {
+      return res.status(404).json({ message: 'Contact not found' });
+    }
+    res.status(200).json({ message: 'Contact deleted' });
+  } catch (err) {
+    res.status(500).json({ message: err.message || 'Error deleting contact' });
+  }
+};
+
+module.exports = { getAll, getSingle, createContact, updateContact, deleteContact };
