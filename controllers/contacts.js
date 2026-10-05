@@ -42,6 +42,7 @@ const buildContact = (body) => ({
 });
 
 const createContact = async (req, res) => {
+  // #swagger.parameters['body'] = { in: 'body', required: true, schema: { $ref: '#/definitions/ContactInput' } }
   const missing = getMissingFields(req.body);
   if (missing.length) {
     return res.status(400).json({ message: `Missing required fields: ${missing.join(', ')}` });
@@ -59,6 +60,7 @@ const createContact = async (req, res) => {
 };
 
 const updateContact = async (req, res) => {
+  // #swagger.parameters['body'] = { in: 'body', required: true, schema: { $ref: '#/definitions/ContactInput' } }
   if (!ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ message: 'Invalid contact id' });
   }
