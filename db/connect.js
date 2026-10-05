@@ -1,27 +1,25 @@
 const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
-let client;
+let db;
 
-const initDb = (callback) => {
-  if (client) {
-    return callback(null, client);
+const initDb = async () => {
+  if (db) {
+    return db;
   }
   if (!process.env.MONGODB_URI) {
-    return callback(new Error('MONGODB_URI is not set'));
+    throw new Error('MONGODB_URI is not set');
   }
-  MongoClient.connect(process.env.MONGODB_URI)
-    .then((connection) => {
-      client = connection;
-      callback(null, client);
-    })
-    .catch((err) => callback(err));
+  const client = await MongoClient.connect(process.env.MONGODB_URI);
+  db = client.db(process.env.DB_NAME || 'cse341');
+  return db;
 };
 
 const getDb = () => {
-  if (!client) {
-    throw Error('Db not initialized');
+  if (!db) {
+    throw new Error('Database not initialized');
   }
-  return client.db(process.env.DB_NAME || 'cse341');
+  return db;
 };
 
 module.exports = { initDb, getDb };

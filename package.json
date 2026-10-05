@@ -21,6 +21,7 @@
     "swagger": "node swagger.js"
   },
   "dependencies": {
+    "cors": "^2.8.6",
     "dotenv": "^18.0.5",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
