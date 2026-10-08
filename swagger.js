@@ -14,6 +14,9 @@ const doc = {
       email: 'jane@example.com',
       favoriteColor: 'blue',
       birthday: '1990-01-01'
+    },
+    Message: {
+      message: 'Contact deleted'
     }
   }
 };

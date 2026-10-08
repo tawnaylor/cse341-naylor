@@ -37,7 +37,8 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   // #swagger.tags = ['Contacts']
   /* #swagger.responses[200] = {
-    schema: { $ref: '#/definitions/Contact' }
+    description: 'Contact deleted',
+    schema: { $ref: '#/definitions/Message' }
   } */
   contactsController.deleteContact(req, res);
 });

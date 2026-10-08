@@ -212,9 +212,9 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Contact deleted",
             "schema": {
-              "$ref": "#/definitions/Contact"
+              "$ref": "#/definitions/Message"
             }
           },
           "400": {
@@ -253,6 +253,15 @@
         "birthday": {
           "type": "string",
           "example": "1990-01-01"
+        }
+      }
+    },
+    "Message": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Contact deleted"
         }
       }
     }
