@@ -51,8 +51,21 @@
         }
       }
     },
+    "/api-docs": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/contacts/": {
       "get": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "parameters": [
           {
@@ -77,14 +90,16 @@
         }
       },
       "post": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "required": true,
             "schema": {
-              "$ref": "#/definitions/ContactInput"
+              "$ref": "#/definitions/Contact"
             }
           }
         ],
@@ -103,6 +118,9 @@
     },
     "/contacts/{id}": {
       "get": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "parameters": [
           {
@@ -133,6 +151,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "parameters": [
           {
@@ -144,9 +165,8 @@
           {
             "name": "body",
             "in": "body",
-            "required": true,
             "schema": {
-              "$ref": "#/definitions/ContactInput"
+              "$ref": "#/definitions/Contact"
             }
           }
         ],
@@ -166,6 +186,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "parameters": [
           {
@@ -193,7 +216,7 @@
     }
   },
   "definitions": {
-    "ContactInput": {
+    "Contact": {
       "type": "object",
       "properties": {
         "firstName": {
@@ -216,14 +239,7 @@
           "type": "string",
           "example": "1990-01-01"
         }
-      },
-      "required": [
-        "firstName",
-        "lastName",
-        "email",
-        "favoriteColor",
-        "birthday"
-      ]
+      }
     }
   }
 }

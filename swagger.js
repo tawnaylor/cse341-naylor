@@ -8,12 +8,12 @@ const doc = {
   host: 'cse341-naylor.onrender.com',
   schemes: ['https'],
   definitions: {
-    ContactInput: {
-      $firstName: 'Jane',
-      $lastName: 'Doe',
-      $email: 'jane@example.com',
-      $favoriteColor: 'blue',
-      $birthday: '1990-01-01'
+    Contact: {
+      firstName: 'Jane',
+      lastName: 'Doe',
+      email: 'jane@example.com',
+      favoriteColor: 'blue',
+      birthday: '1990-01-01'
     }
   }
 };

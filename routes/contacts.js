@@ -2,14 +2,35 @@ const router = require('express').Router();
 const contactsController = require('../controllers/contacts');
 
 router.get('/', (req, res) => {
+  // #swagger.tags = ['Contacts']
   if (req.query.id !== undefined) {
     return contactsController.getSingle(req, res);
   }
   return contactsController.getAll(req, res);
 });
-router.get('/:id', contactsController.getSingle);
-router.post('/', contactsController.createContact);
-router.put('/:id', contactsController.updateContact);
-router.delete('/:id', contactsController.deleteContact);
+router.get('/:id', (req, res) => {
+  // #swagger.tags = ['Contacts']
+  contactsController.getSingle(req, res);
+});
+router.post('/', (req, res) => {
+  // #swagger.tags = ['Contacts']
+  /* #swagger.parameters['body'] = {
+    in: 'body',
+    schema: { $ref: '#/definitions/Contact' }
+  } */
+  contactsController.createContact(req, res);
+});
+router.put('/:id', (req, res) => {
+  // #swagger.tags = ['Contacts']
+  /* #swagger.parameters['body'] = {
+    in: 'body',
+    schema: { $ref: '#/definitions/Contact' }
+  } */
+  contactsController.updateContact(req, res);
+});
+router.delete('/:id', (req, res) => {
+  // #swagger.tags = ['Contacts']
+  contactsController.deleteContact(req, res);
+});
 
 module.exports = router;
