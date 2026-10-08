@@ -3,6 +3,9 @@ const contactsController = require('../controllers/contacts');
 
 router.get('/', (req, res) => {
   // #swagger.tags = ['Contacts']
+  /* #swagger.responses[200] = {
+    schema: [{ $ref: '#/definitions/Contact' }]
+  } */
   if (req.query.id !== undefined) {
     return contactsController.getSingle(req, res);
   }
@@ -10,6 +13,9 @@ router.get('/', (req, res) => {
 });
 router.get('/:id', (req, res) => {
   // #swagger.tags = ['Contacts']
+  /* #swagger.responses[200] = {
+    schema: { $ref: '#/definitions/Contact' }
+  } */
   contactsController.getSingle(req, res);
 });
 router.post('/', (req, res) => {
@@ -30,6 +36,9 @@ router.put('/:id', (req, res) => {
 });
 router.delete('/:id', (req, res) => {
   // #swagger.tags = ['Contacts']
+  /* #swagger.responses[200] = {
+    schema: { $ref: '#/definitions/Contact' }
+  } */
   contactsController.deleteContact(req, res);
 });
 
